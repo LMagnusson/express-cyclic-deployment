@@ -26,7 +26,7 @@ const errorHandler = (error, request, response, next) => {
 
 
 
-const persons = Person.find({})
+
 
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
