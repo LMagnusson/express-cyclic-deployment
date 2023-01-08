@@ -12,15 +12,14 @@ app.use(morgan('tiny'))
 app.use(cors())
 
 
-const mongoose = require('mongoose')
 
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
 
     if (error.name === 'CastError') {
         return response.status(400).json({ error: 'malformatted id' })
-    } else if(error.name === 'ValidationError'){
-        return response.status(400).json({error: error.message})
+    } else if (error.name === 'ValidationError') {
+        return response.status(400).json({ error: error.message })
     }
 
     next(error)
@@ -48,7 +47,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    Person.findByIdAndRemove(request.params.id).then(result => {
+    Person.findByIdAndRemove(request.params.id).then(() => {
         response.status(204).end()
     })
         .catch(error => next(error))
@@ -57,7 +56,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 
 app.get('/info', (request, response) => {
-    Person.count({},(err, count) => {response.json('<h3>Phonebook has info for ' + count + ' people</h3> <p>' + Date() + '</p>')})
+    Person.count({}, (err, count) => { response.json('<h3>Phonebook has info for ' + count + ' people</h3> <p>' + Date() + '</p>') })
 })
 
 
